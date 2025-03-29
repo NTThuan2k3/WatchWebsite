@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layoutUser}">
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Product Detail</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <!--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <th:block th:replace="layout::link-css"></th:block>
+</head>
+
+<body>
+<section layout:fragment="content" class="container mt-5" style="padding-left: 15%; padding-right: 15%">
+    <div class="card">
+        <div class="container">
+            <div class="wrapper row">
+                <div class="preview col-md-4">
+                    <div class="preview-pic tab-content">
+                        <div class="tab-pane active" id="pic-1">
+                            <img th:src="@{/products/image/{id}(id=${product.id})}" class="img-thumbnail" style="width: auto">
+                        </div>
+                    </div>
+                </div>
+                <div class="details col-md-6">
+                    <h3 th:text="${product.name}" class="product-title"></h3>
+                    <!--                    <div class="rating">-->
+                    <!--                        <div class="stars">-->
+                    <!--                            <span class="fa fa-star checked"></span>-->
+                    <!--                            <span class="fa fa-star checked"></span>-->
+                    <!--                            <span class="fa fa-star checked"></span>-->
+                    <!--                            <span class="fa fa-star"></span>-->
+                    <!--                            <span class="fa fa-star"></span>-->
+                    <!--                        </div>-->
+                    <!--                        <span class="review-no">41 reviews</span>-->
+                    <!--                    </div>-->
+                    <p class="product-description">
+                        <label th:text="${product.description}" class="form-label"></label>
+                    </p>
+                    <p class="vote">
+                        <strong>Thương hiệu:</strong><label th:text="${product.brand}" class="form-label"></label>
+                        <br>
+                        <strong>Giới tính:</strong><label th:text="${product.gender}" class="form-label"></label>
+                        <br>
+                        <strong th:text="${product.isHot ? 'HOT' : ''}"></strong>
+                    </p>
+                    <h4 class="price">Giá:
+                        <label th:text="${product.price}" class="form-label"></label>
+                        <span></span>
+                    </h4>
+                    <!--                    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>-->
+                    <!--                    <h5 class="sizes">sizes:-->
+                    <!--                        <span class="size" data-toggle="tooltip" title="small">s</span>-->
+                    <!--                        <span class="size" data-toggle="tooltip" title="medium">m</span>-->
+                    <!--                        <span class="size" data-toggle="tooltip" title="large">l</span>-->
+                    <!--                        <span class="size" data-toggle="tooltip" title="xtra large">xl</span>-->
+                    <!--                    </h5>-->
+                    <!--                    <h5 class="colors">colors:-->
+                    <!--                        <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>-->
+                    <!--                        <span class="color green"></span>-->
+                    <!--                        <span class="color blue"></span>-->
+                    <!--                    </h5>-->
+                    <div class="action">
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                            <input type="hidden" th:value="${product.id}" name="productId"/>
+                            <button type="submit" class="add-to-cart btn btn-default">Add to card</button>
+                            <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
+                        </form>
+                    </div>
+                    <div class="active mt-2">
+                        <a th:href="@{/reviews/{id}(id=${product.id})}" class="btn btn-success btn-sm">All Comment</a>
+                        <a th:href="@{/reviews/add/{id}(id=${product.id})}" class="btn btn-success btn-sm">Add Comment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Quản lý</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+
+<body>
+<div class="wrapper">
+    <aside id="sidebar" class="expand">
+        <div class="d-flex">
+            <button class="toggle-btn" type="button">
+                <i class="lni lni-grid-alt"></i>
+            </button>
+            <div class="sidebar-logo">
+                <a href="/products">Web Bán Đồng Hồ</a>
+            </div>
+        </div>
+        <ul class="sidebar-nav">
+<!--            <li class="sidebar-item">-->
+<!--                <a href="#" class="sidebar-link">-->
+<!--                    <i class="lni lni-user"></i>-->
+<!--                    <span>Profile</span>-->
+<!--                </a>-->
+<!--            </li>-->
+            <li class="sidebar-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                <a href="/products" class="sidebar-link">
+                    <i class="lni lni-agenda"></i>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li class="sidebar-item" sec:authorize="hasAnyAuthority('ADMIN')">
+                <a href="/categories" class="sidebar-link">
+                    <i class="lni lni-agenda"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <!--            <li class="sidebar-item">-->
+            <!--                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"-->
+            <!--                   data-bs-target="#auth" aria-expanded="false" aria-controls="auth">-->
+            <!--                    <i class="lni lni-protection"></i>-->
+            <!--                    <span>Auth</span>-->
+            <!--                </a>-->
+            <!--                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">-->
+            <!--                    <li class="sidebar-item">-->
+            <!--                        <a href="#" class="sidebar-link">Login</a>-->
+            <!--                    </li>-->
+            <!--                    <li class="sidebar-item">-->
+            <!--                        <a href="#" class="sidebar-link">Register</a>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </li>-->
+            <!--            <li class="sidebar-item">-->
+            <!--                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"-->
+            <!--                   data-bs-target="#multi" aria-expanded="false" aria-controls="multi">-->
+            <!--                    <i class="lni lni-layout"></i>-->
+            <!--                    <span>Multi Level</span>-->
+            <!--                </a>-->
+            <!--                <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">-->
+            <!--                    <li class="sidebar-item">-->
+            <!--                        <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"-->
+            <!--                           data-bs-target="#multi-two" aria-expanded="false" aria-controls="multi-two">-->
+            <!--                            Two Links-->
+            <!--                        </a>-->
+            <!--                        <ul id="multi-two" class="sidebar-dropdown list-unstyled collapse">-->
+            <!--                            <li class="sidebar-item">-->
+            <!--                                <a href="#" class="sidebar-link">Link 1</a>-->
+            <!--                            </li>-->
+            <!--                            <li class="sidebar-item">-->
+            <!--                                <a href="#" class="sidebar-link">Link 2</a>-->
+            <!--                            </li>-->
+            <!--                        </ul>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </li>-->
+            <!--            <li class="sidebar-item">-->
+            <!--                <a href="#" class="sidebar-link">-->
+            <!--                    <i class="lni lni-popup"></i>-->
+            <!--                    <span>Notification</span>-->
+            <!--                </a>-->
+            <!--            </li>-->
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <i class="lni lni-cog"></i>
+                    <span>Setting</span>
+                </a>
+            </li>
+        </ul>
+        <!--            <li class="sidebar-item">-->
+        <!--                <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"-->
+        <!--                   data-bs-target="#auth" aria-expanded="false" aria-controls="auth">-->
+        <!--                    <i class="lni lni-protection"></i>-->
+        <!--                    <span>Auth</span>-->
+        <!--                </a>-->
+        <!--                <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">-->
+        <!--                    <li class="sidebar-item">-->
+        <!--                        <a href="#" class="sidebar-link">Login</a>-->
+        <!--                    </li>-->
+        <!--                    <li class="sidebar-item">-->
+        <!--                        <a href="#" class="sidebar-link">Register</a>-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </li>-->
+        <!--        <div class="sidebar-footer">-->
+        <!--            <a href="#" class="sidebar-link">-->
+        <!--                <i class="lni lni-exit"></i>-->
+        <!--                <span>Logout</span>-->
+        <!--            </a>-->
+        <!--        </div>-->
+        <div class="sidebar-footer">
+            <li sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <button class="sidebar-link btn btn-outline-light"
+                            type="submit">
+                        <i class="lni lni-exit"></i>
+                        Logout
+                    </button>
+                </form>
+            </li>
+            <li sec:authorize="!isAuthenticated()">
+                <a class="sidebar-link" href="/login">
+                    <i class="lni lni-exit"></i>
+                    <span>Login</span>
+                </a>
+            </li>
+
+        </div>
+    </aside>
+    <div class="main p-3">
+        <div layout:fragment="content">
+            Change here
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Bài thực hành tuần 3</title>-->
+<!--    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
+<!--</head>-->
+<!--<body>-->
+<!--<header th:fragment="header">-->
+<!--    <nav class="navbar navbar-expand-lg navbar-light bg-primary">-->
+<!--        <div class="container-fluid">-->
+<!--            <a class="navbar-brand text-white" href="/products">Web Bán Hàng</a>-->
+<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"-->
+<!--                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"-->
+<!--                    aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link text-white active" aria-current="page" href="/products">Product</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item"  sec:authorize="isAuthenticated()">-->
+<!--                        <a class="nav-link text-white active" aria-current="page" href="/order">Order</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a th:href="@{/products/add}" class="nav-link text-white">Add New Product</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">-->
+<!--                        <a th:href="@{/categories}" class="nav-link text-white">Category</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">-->
+<!--                    <li class="nav-item d-flex align-items-center"-->
+<!--                        sec:authorize="isAuthenticated()">-->
+<!--                        <span class="navbar-text text-white">-->
+<!--                        Xin chào, <span sec:authentication="name" style="marginright: 20px;"></span>-->
+<!--                        </span>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                        <form th:action="@{/logout}" method="post">-->
+<!--                            <button class="btn btn-outline-light" type="submit">Logout</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item" sec:authorize="!isAuthenticated()">-->
+<!--                        <a class="btn btn-outline-light" href="/login">Login</a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+<!--</header>-->
+<!--<div th:insert="~{::${content}}"></div>-->
+<!--<footer th:fragment="footer">-->
+<!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
+<!--</footer>-->
+<!--</body>-->
+<!--</html>-->

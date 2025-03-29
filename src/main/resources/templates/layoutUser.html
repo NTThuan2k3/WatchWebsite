@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+    <link href="/assets/css/styles.css" rel="stylesheet" />
+    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/">Watch</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                    <li sec:authorize="hasAuthority('ADMIN')" class="nav-item"><a class="nav-link" href="/products">Admin</a></li>
+                    <li sec:authorize="hasAuthority('USER')" class="nav-item"><a class="nav-link" href="/order">Orders</a></li>
+                </ul>
+<!--                <form class="d-flex">-->
+<!--                    <button class="btn btn-outline-dark" type="submit">-->
+<!--                        <i class="bi-cart-fill me-1"></i>-->
+<!--                        Cart-->
+<!--                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>-->
+<!--                    </button>-->
+<!--                </form>-->
+                <ul class="navbar-nav ms-2 mb-lg-0">
+                    <li class="nav-item d-flex align-items-center"
+                        sec:authorize="isAuthenticated()">
+                        <a th:href="@{/cart}" class="btn btn-secondary">
+                            <i class="bi bi-cart"></i> Xem Giỏ Hàng
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center"
+                        sec:authorize="isAuthenticated()">
+                        <span class="navbar-text text-black">
+                        Xin chào, <span sec:authentication="name" style="marginright: 20px;"></span>
+                        </span>
+                    </li>
+                    <li class="nav-item ms-2" sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="btn btn-outline-dark"
+                                    type="submit">Logout</button>
+                        </form>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="btn btn-outline-dark" href="/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div layout:fragment="content">
+        Change here
+    </div>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark" >
+        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+    </footer>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

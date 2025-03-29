@@ -1,0 +1,35 @@
+<!-- orderDetail/add.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Add Order Detail</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h1>Add Order Detail</h1>
+    <form th:action="@{/order-details/add}" th:object="${orderDetail}" method="post">
+        <div class="form-group">
+            <label for="orderId">Order:</label>
+            <select class="form-control" id="orderId" th:field="*{order.id}">
+                <option th:each="order : ${orders}" th:value="${order.id}"
+                        th:text="${order.id}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="productId">Product:</label>
+            <select class="form-control" id="productId" th:field="*{product.id}">
+                <option th:each="product : ${products}" th:value="${product.id}"
+                        th:text="${product.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" th:field="*{quantity}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

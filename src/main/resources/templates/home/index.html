@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
+      layout:decorate="~{layoutUser}">
+<head>
+    <meta charset="UTF-8">
+    <title>WEBSITE BÁN HÀNG</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <th:block th:replace="layout::link-css"></th:block>
+
+</head>
+<body>
+<!--<th:block th:replace="layout::header"></th:block>-->
+<div layout:fragment="content" class="container">
+    <header class="py-5" style="background-image: url(https://png.pngtree.com/background/20210710/original/pngtree-black-dynamic-watch-simple-black-banner-picture-image_1032760.jpg);">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shop in style</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+            </div>
+        </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col-md-4 mb-4" th:each="product : ${productPage.content}">
+                <div class="card h-100">
+                    <img th:src="@{/products/image/{id}(id=${product.id})}" class="card-img-top" alt="Product Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${product.name}"></h5>
+                        <p class="card-text">Giá: <span th:text="${product.price}"></span> VND</p>
+                        <p class="card-text">Thương Hiệu: <span th:text="${product.brand}"></span></p>
+                        <p class="card-text" th:text="${product.description}"></p>
+                        <p class="card-text">Loại: <span th:text="${product.category.name}"></span></p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{/products/detail/{id}(id=${product.id})}" class="btn btn-success btn-sm mb-2 w-100">Chi tiết</a>
+
+                        <form th:action="@{/cart/add}" method="post" class="d-flex justify-content-between align-items-center">
+                            <input type="number" name="quantity" min="1" value="1" class="form-control" style="width: 70px;">
+                            <input type="hidden" th:value="${product.id}" name="productId"/>
+                            <button type="submit" class="btn btn-warning btn-sm w-100 ms-2">Thêm Vào Giỏ</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Điều khiển phân trang -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!productPage.hasPrevious()} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=${productPage.number - 1}, size=${productPage.size})}">Trang Trước</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}" th:classappend="${productPage.number == i} ? 'active'">
+                    <a class="page-link" th:href="@{/(page=${i}, size=${productPage.size})}" th:text="${i + 1}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${!productPage.hasNext()} ? 'disabled'">
+                    <a class="page-link" th:href="@{/(page=${productPage.number + 1}, size=${productPage.size})}">Trang Tiếp</a>
+                </li>
+            </ul>
+        </nav>
+    </section>
+</div>
+<!--<th:block th:replace="layout::footer"></th:block>-->
+</body>
+</html>
